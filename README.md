@@ -1,5 +1,7 @@
 # Query-Dasar-Splunk
 
+Query di bawah ini bedasarkan Lab Pribadi/Bisa di terapkan di real case nyata dengan Beberapa Command/menyesuaikan file 
+
 PASTIKAN DATA ADA: index=windows_lab
 Kalau ini kosong → masalah ingest
 Kalau ADA → lanjut
@@ -46,7 +48,7 @@ Fungsi
 Membaca format log asli
 Menentukan field apa yang bisa dianalisis
 
-QUERY 3 — TAMPILKAN FIELD PENTING (KALAU ADA)
+# QUERY 3 — TAMPILKAN FIELD PENTING (KALAU ADA)
 index=windows_lab "Status=failed"
 | table _time User Status IP Host
 
@@ -60,7 +62,7 @@ Kalau ada field kosong, itu normal
 Fungsi
 Membaca siapa, dari mana, kapan
 
-#QUERY 4 — HITUNG FAILED LOGIN PER USER
+# QUERY 4 — HITUNG FAILED LOGIN PER USER
 index=windows_lab "Status=failed"
 | stats count by User
 
@@ -72,3 +74,13 @@ by User → dikelompokkan per user
  Fungsi
 Mendeteksi user dengan gagal login terbanyak
 Kandidat brute force
+
+# QUERY 5 — HITUNG FAILED LOGIN PER IP
+index=windows_lab "Status=failed" "10.10.10.5"
+
+Fungsi SOC
+IP dengan banyak gagal → attacker IP
+IP internal kecil → user normal
+
+Demikian adalah contoh Query bedasarkan Lab 
+/ bisa juga di terspkan di real case dengan mengubah beberapa comand atau tinggal menyesuaikannya
